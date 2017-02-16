@@ -1,14 +1,28 @@
 import os
 import pygame as pg
 
-CAPTION = "Test Program"
+CAPTION = "Dinosaur Game"
 SCREEN_SIZE = (1420, 800)
 BACKGROUND_COLOR = (40, 40, 40)
 TRANSPARENT = (0, 0, 0, 0)
 
+pg.init()
+pg.display.set_caption(CAPTION)
+screen = pg.display.set_mode(SCREEN_SIZE)
+
 clock = pg.time.Clock()            
 
+class Ground(object):
+    def __init__(self):
+        self.ground_image = pg.image.load('H:/tile.png')
+        self.ground_image = pg.transform.scale(self.ground_image, (80, 80))
 
+    def display(self):
+        screen.blit(self.ground_image, (0, 0))
+        
+
+
+    
 class Control(object):
     
     def __init__(self):
@@ -88,33 +102,19 @@ class Player(object):
 
 def main():
     clock.tick(120)
-    pg.init()
-    pg.display.set_caption(CAPTION)
-    screen = pg.display.set_mode(SCREEN_SIZE)
     controls = Control()
     #Player gets input through 'controls'
     player = Player(controls)
+    brick = Ground()
         
     while True:
 
         screen.fill((0, 0, 0))
+        brick.display()
         controls.get_input()
         player.move()
         pg.draw.rect(screen, (100, 100, 100), pg.Rect(player.xpos, player.ypos, 80, 160))
         pg.display.flip()
-        
-        if controls.UP == True:
-            pass
-            #print "UP"
-        if controls.DOWN == True:
-            pass
-            #print "DOWN"
-        if controls.RIGHT == True:
-            pass
-            #print "RIGHT"
-        if controls.LEFT == True:
-            pass
-            #print "LEFT"
         
 
 main()
