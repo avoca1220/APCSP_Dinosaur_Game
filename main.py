@@ -14,7 +14,7 @@ clock = pg.time.Clock()
 
 class Ground(object):
     def __init__(self):
-        self.ground_image = pg.image.load('H:/tile.png')
+        self.ground_image = pg.image.load('Assets/tile.png')
         self.ground_image = pg.transform.scale(self.ground_image, (80, 80))
 
     def display(self):
@@ -55,50 +55,57 @@ class Player(object):
         self.jump_timer = 1
         self.space_was_released = True
         self.must_jump = False
+        self.jump_interval = 5
+        self.value = 1
 
     def jump(self):
-        
+
+
         if self.ypos > self.jump_height and self.going_down == False:
-            
+                
             if self.jump_timer < 10:
                 self.jump_timer += 1
             elif self.jump_timer == 10:
                 self.jump_timer = 1
             if self.jump_timer % 2 == 1:
-                self.ypos -= 5
-            print self.jump_timer
+                self.ypos -= self.jump_interval
 
-                
+            
+
+                    
         if self.ypos == self.jump_height and self.going_down == False:
             self.going_down = True
-            
+                
         if self.going_down == True and self.ypos < 400:
             if self.jump_timer < 10:
                 self.jump_timer += 1
             elif self.jump_timer == 10:
                 self.jump_timer = 1
             if self.jump_timer % 2 == 1:
-                self.ypos += 5
-            print self.jump_timer
+                self.ypos += self.jump_interval
+            
 
 
         if self.going_down == True and self.ypos == 400:
             self.going_down = False
 
+            
+
 
     def move(self):
-        
         if self.input_control.SPACE == True:
             self.jump()
-        
+            
         if self.input_control.SPACE == False and self.ypos < 400:
             if self.jump_timer < 10:
                 self.jump_timer += 1
             elif self.jump_timer == 10:
                 self.jump_timer = 1
             if self.jump_timer % 2 == 1:
-                self.ypos += 5
-            print self.jump_timer
+                self.ypos += self.jump_interval
+
+
+
 
 def main():
     clock.tick(120)
@@ -115,6 +122,7 @@ def main():
         player.move()
         pg.draw.rect(screen, (100, 100, 100), pg.Rect(player.xpos, player.ypos, 80, 160))
         pg.display.flip()
+
         
 
 main()
