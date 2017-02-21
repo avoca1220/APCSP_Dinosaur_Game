@@ -67,7 +67,7 @@ class Player(object):
                 self.jump_timer += 1
             elif self.jump_timer == 10:
                 self.jump_timer = 1
-            if self.jump_timer % 2 == 1:
+            if self.jump_timer % 8 == 1:
                 self.ypos -= self.jump_interval
 
             
@@ -81,7 +81,7 @@ class Player(object):
                 self.jump_timer += 1
             elif self.jump_timer == 10:
                 self.jump_timer = 1
-            if self.jump_timer % 2 == 1:
+            if self.jump_timer % 8 == 1:
                 self.ypos += self.jump_interval
             
 
@@ -101,14 +101,14 @@ class Player(object):
                 self.jump_timer += 1
             elif self.jump_timer == 10:
                 self.jump_timer = 1
-            if self.jump_timer % 2 == 1:
+            if self.jump_timer % 8 == 1:
                 self.ypos += self.jump_interval
 
 
 
 
 def main():
-    clock.tick(120)
+    clock.tick(30)
     controls = Control()
     #Player gets input through 'controls'
     player = Player(controls)
