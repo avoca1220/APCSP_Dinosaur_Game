@@ -18,8 +18,41 @@ class Ground(object):
         self.ground_image = pg.transform.scale(self.ground_image, (80, 80))
 
     def display(self):
-        screen.blit(self.ground_image, (0, 0))
+        screen.blit(self.ground_image, (0, 560))
         
+        screen.blit(self.ground_image, (80, 560))
+
+        screen.blit(self.ground_image, (160, 560))
+
+        screen.blit(self.ground_image, (240, 560))
+
+        screen.blit(self.ground_image, (320, 560))
+
+        screen.blit(self.ground_image, (400, 560))
+
+        screen.blit(self.ground_image, (480, 560))
+
+        screen.blit(self.ground_image, (560, 560))
+
+        screen.blit(self.ground_image, (640, 560))
+
+        screen.blit(self.ground_image, (720, 560))
+
+        screen.blit(self.ground_image, (800, 560))
+
+        screen.blit(self.ground_image, (880, 560))
+
+        screen.blit(self.ground_image, (960, 560))
+
+        screen.blit(self.ground_image, (1040, 560))
+
+        screen.blit(self.ground_image, (1120, 560))
+
+        screen.blit(self.ground_image, (1200, 560))
+
+        screen.blit(self.ground_image, (1280, 560))
+
+        screen.blit(self.ground_image, (1360, 560))
 
 
     
