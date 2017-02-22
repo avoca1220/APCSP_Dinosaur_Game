@@ -1,5 +1,6 @@
 import os
 import pygame as pg
+import random
 
 CAPTION = "Dinosaur Game"
 SCREEN_SIZE = (1420, 800)
@@ -16,43 +17,26 @@ class Ground(object):
     def __init__(self):
         self.ground_image = pg.image.load('Assets/tile.png')
         self.ground_image = pg.transform.scale(self.ground_image, (80, 80))
+        self.spike_image = pg.image.load('Assets/spike.png')
+        self.spike_image = pg.transform.scale(self.spike_image, (80, 80))
+        self.offset = 0
+        self.offset_interval = 1
+        self.ground_array = {}
 
     def display(self):
-        screen.blit(self.ground_image, (0, 560))
-        
-        screen.blit(self.ground_image, (80, 560))
+        if self.offset < 80:
+            self.offset += self.offset_interval
+        if self.offset == 80:
+            self.offset = 0
+        for i in range(19):
+            if (i * 80 - self.offset) < 80:
+                screen.blit(self.ground_image, ((i * 80 - self.offset), 560 - ((i * 80 - self.offset)- 80)))
 
-        screen.blit(self.ground_image, (160, 560))
+            else:
+                screen.blit(self.ground_image, ((i * 80 - self.offset), 560))
 
-        screen.blit(self.ground_image, (240, 560))
-
-        screen.blit(self.ground_image, (320, 560))
-
-        screen.blit(self.ground_image, (400, 560))
-
-        screen.blit(self.ground_image, (480, 560))
-
-        screen.blit(self.ground_image, (560, 560))
-
-        screen.blit(self.ground_image, (640, 560))
-
-        screen.blit(self.ground_image, (720, 560))
-
-        screen.blit(self.ground_image, (800, 560))
-
-        screen.blit(self.ground_image, (880, 560))
-
-        screen.blit(self.ground_image, (960, 560))
-
-        screen.blit(self.ground_image, (1040, 560))
-
-        screen.blit(self.ground_image, (1120, 560))
-
-        screen.blit(self.ground_image, (1200, 560))
-
-        screen.blit(self.ground_image, (1280, 560))
-
-        screen.blit(self.ground_image, (1360, 560))
+            
+            
 
 
     
@@ -87,9 +71,11 @@ class Player(object):
         self.going_down = False
         self.jump_timer = 1
         self.space_was_released = True
-        self.must_jump = False
-        self.jump_interval = 5
+        self.must_fall = False
+        self.jump_interval = 10
         self.value = 1
+        self.sprite = pg.image.load('Assets\chrome-trex-dinosaur.png')
+        self.sprite = pg.transform.scale(self.sprite, (100, 107))
 
     def jump(self):
 
@@ -128,8 +114,13 @@ class Player(object):
     def move(self):
         if self.input_control.SPACE == True:
             self.jump()
-            
+
+        
+        
         if self.input_control.SPACE == False and self.ypos < 400:
+
+            self.going_down = True
+            
             if self.jump_timer < 10:
                 self.jump_timer += 1
             elif self.jump_timer == 10:
@@ -137,11 +128,14 @@ class Player(object):
             if self.jump_timer % 8 == 1:
                 self.ypos += self.jump_interval
 
+    def display(self):
+        screen.blit(self.sprite, (self.xpos, self.ypos + 53))
+
 
 
 
 def main():
-    clock.tick(30)
+    clock.tick(120)
     controls = Control()
     #Player gets input through 'controls'
     player = Player(controls)
@@ -149,11 +143,11 @@ def main():
         
     while True:
 
-        screen.fill((0, 0, 0))
+        screen.fill((255, 255, 255))
         brick.display()
         controls.get_input()
         player.move()
-        pg.draw.rect(screen, (100, 100, 100), pg.Rect(player.xpos, player.ypos, 80, 160))
+        player.display()
         pg.display.flip()
 
         
