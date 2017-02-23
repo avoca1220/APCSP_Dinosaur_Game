@@ -21,20 +21,34 @@ class Ground(object):
         self.spike_image = pg.transform.scale(self.spike_image, (80, 80))
         self.offset = 0
         self.offset_interval = 1
-        self.ground_array = {}
+        self.spike_offset = 0
+        self.spike_offset_interval = 1
+        self.spike_map = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,1,0,1,0,1,0,0,0,1,0,1,0,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,]
 
     def display(self):
         if self.offset < 80:
             self.offset += self.offset_interval
         if self.offset == 80:
             self.offset = 0
+
+        if self.spike_offset < (len(self.spike_map) * 80):
+            self.spike_offset += 1
+        if self.spike_offset == (len(self.spike_map) * 80):
+            self.spike_offset = 0
+            
         for i in range(19):
-            if (i * 80 - self.offset) < 80:
-                screen.blit(self.ground_image, ((i * 80 - self.offset), 560 - ((i * 80 - self.offset)- 80)))
+            if (i * 80 - self.offset) < 400:
+                screen.blit(self.ground_image, ((i * 80 - self.offset), 560 - ((i * 80 - self.offset) - 400)))
 
             else:
                 screen.blit(self.ground_image, ((i * 80 - self.offset), 560))
 
+        for i in range(len(self.spike_map)):
+            if self.spike_map[i] == 1:
+                if (i * 80 - self.spike_offset) < 400:
+                    screen.blit(self.spike_image, ((i * 80 - self.spike_offset), 480 - ((i * 80 - self.spike_offset) - 400)))
+                else:
+                    screen.blit(self.spike_image, ((i * 80 - self.spike_offset), 480))
             
             
 
