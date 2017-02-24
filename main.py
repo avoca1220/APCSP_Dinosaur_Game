@@ -1,3 +1,71 @@
+# -*- coding: cp1252 -*-
+'''
+CLIENT STORY
+The client would like a game with a fully destructible environment,
+an unlimited capacity for dedicated servers, photorealistic graphics
+, hyper-realistic physics, the ability to run on an iPad 2, a
+competitive atmosphere, guns, Michael Bay explosions, the ability to
+ride in Transformers, perfectly balanced guns and melee weapons, an
+open world, free downloadable content, regular updates, simulation-style
+driving, and dinosaurs, proficiency in sports (it must be better than Madden)
+. It must be an action-packed life simulator capable of satisfying the
+emotional needs of the clients.
+
+BACKLOG
+Character is a dinosaur
+Character has in its hands an SMG and a Katana
+Character constantly runs across an eternal ground, jumpin
+g (based on the pressing of the space bar) over spikes that randomly appear.
+The background of the game is a slideshow of Keanu Reeves
+As the dinosaur runs, the platforms crumble and fall behind him
+(more for aesthetic purposes)
+If the character touches a spike, it explodes and the player loses.
+
+MODIFICATIONS
+The game will not have photorealistic graphics or an unlimited capacity
+for dedicated servers, and most likely will not run on an iPad 2—unless
+the iPad 2 magically has the required specs, libraries, and such. The
+dinosaur will have the ability to ride in transformers if there is sufficient
+time for such a task. There will be no extra DLC. There will only be
+simulation-style driving if there is sufficient time and the transformers
+feature is already added. It will have no ability when it comes to
+competitive sports. Whether or not the game will satisfy the emotional
+needs of the client is not verifiable until we receive feedback after
+completing the project.
+
+SPRINT TASKS
+Create and set up screen class through PyGame
+Obtain images of Keanu Reeves
+Set up screen class background so that it alternates between images of
+Keanu Reeves
+Create dinosaur images to be used for ‘animation’
+Create ground images to be used for ‘animation’
+Create player class
+Create player method that switches between images of dinosaur for animation
+purposes
+Create user input class
+Create user input method that stores current user input (namely the state
+of the space bar) into a variable
+Create player method that makes character jump if space bar variable is True
+Create ground class
+Create ground animation method that causes the ground to move to the left
+as if the character is running to the right
+Create ground crumble method that causes ground blocks to crumble and fall
+if they are too far to the left
+Create ground spike generator method to randomly generate spikes to be
+jumped by the character
+Create player method that checks the player’s location in relation to
+the spikes, and causes it to explode if it touches a spike.
+
+FINAL PRODUCT
+The final product did not contain transformers, simulation-style driving,
+or background images of Keanu Reeves. It also was unable to run on an iPad
+2, and the spikes were randomly generated once by a human rather than randomly
+generated dynamically by code. The dinosaur was not animated, but rather
+traveled across the screen as a static image.
+
+'''
+
 #Importing libraries that will be necessary
 import os
 import pygame as pg
@@ -39,7 +107,8 @@ class Ground(object):
         self.spike_offset = 0
 
         #A map of the game in regards to the spikes--a '1' means that there will be a spike in that space, while a '0' means that there will not.
-        self.spike_map = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,1,0,1,0,1,0,0,0,1,0,1,0,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,0,1,1,0,1,0,0,1,0,0,0,1,1,0,1,0,0,1,0,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0,1,0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,]
+        self.spike_map = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,1,0,1,0,1,0,0,0,1,0,1,0,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,0,1,1,0,1,0,\
+                          0,1,0,0,0,1,1,0,1,0,0,1,0,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0,1,0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,]
 
     #The method that moves and displays the ground and spikes
     def display(self):
@@ -141,6 +210,11 @@ class Control(object):
 
                     #...upda the space bar's boolean variable.
                     self.SPACE = False
+
+            if event.type == pg.QUIT:
+                continue_game = False
+                pg.quit()
+                
 
     #The method that resets the game
     def reset(self):
@@ -313,7 +387,7 @@ class Player(object):
 
         pixel_left = screen.get_at((self.xpos, self.ypos + 107))
 
-        #It then checks to see whether any of said pixels are the colors of the spikes, and kills the player accordingly
+        #It then checks to see whether any of said pixels are the colors of the spikes, and murders the player accordingly
         if pixel_right == (116, 114, 114, 255) or pixel_left == (116, 114, 114, 255) or pixel_middle == (116, 114, 114, 225):
             self.kill()
         
